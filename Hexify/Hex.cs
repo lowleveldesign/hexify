@@ -45,6 +45,14 @@ namespace LowLevelDesign.Hexify
         /// <returns></returns>
         public static byte[] FromHexString(string hex)
         {
+            if (hex != null && hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase)) {
+                hex = hex.Substring(2);
+            } else if (hex != null && hex.EndsWith("h", StringComparison.OrdinalIgnoreCase)) {
+                hex = hex.Substring(0, hex.Length - 1);
+            }
+            if (string.IsNullOrEmpty(hex)) {
+                throw new ArgumentException();
+            }
             using (var stream = new MemoryStream()) {
                 encoder.DecodeString(hex, stream);
                 return stream.ToArray();
