@@ -1,7 +1,7 @@
 
 ## Hexify
 
-Hexify is a .NET library which contains methods to simplify work with the binary data (represented in hex characters). The static **Hex** class is the one to be used to convert from/to hex, as well as nicely print the byte arrays. Hex encoding was imported from the excellent [Bouncy Castle](http://bouncycastle.org/csharp/index.html) library.
+Hexify is a .NET library which contains methods to make work with hex string easier. The static **Hex** class is the one to be used to convert from/to hex, as well as to nicely print the byte arrays. Hex encoding was imported from the excellent [Bouncy Castle](http://bouncycastle.org/csharp/index.html) library.
 
 Hexify is available as a Nuget package: <https://www.nuget.org/packages/Hexify/>
 
