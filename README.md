@@ -5,6 +5,12 @@ Hexify is a .NET library which contains methods to make work with hex string eas
 
 Hexify is available as a Nuget package: <https://www.nuget.org/packages/Hexify/>
 
+There is a Powershell module built upon this library, which can be found in the same folder as the solution file. The exported commands are:
+
+- ConvertTo-Hex
+- ConvertFrom-Hex
+- Format-HexPrettyPrint
+
 ### Example usage
 
 To pretty print a content of a binary file you may use the following code:
