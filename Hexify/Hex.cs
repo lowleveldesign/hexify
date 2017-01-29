@@ -74,7 +74,8 @@ namespace LowLevelDesign.Hexify
         /// (similarly to the binary editors). 
         /// 
         /// Example output:
-        /// 
+        ///
+        ///        0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
         /// 0000: c8 83 93 8f b0 cb cb d3 d1 e5 7c ff 52 dc ea 92  E....ËËÓNa.yRÜe.
         /// 0010: 5b af 30 ca d8 7a 35 e9 2e 46 fa 85 b7 38 3f 4e  [.0EOz5é.Fú.8?N
         /// 0020: 8d 60 af 4a 00 00 00 00 57 4d a4 29 35 9e c2 6f  ...J....WM.)5.Âo
@@ -100,6 +101,7 @@ namespace LowLevelDesign.Hexify
             int end = Math.Min(offset + 16, maxLength);
             int start = offset;
 
+            buffer.Append("       0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F").AppendLine();
             while (end <= maxLength) {
                 // print offset 
                 buffer.Append($"{(start - offset):x4}:");

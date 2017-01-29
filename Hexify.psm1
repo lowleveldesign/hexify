@@ -1,7 +1,4 @@
-$scriptPath = Split-Path $MyInvocation.MyCommand.Path
-
-Add-Type -Path "$scriptPath\Hexify.dll"
-
+function ConvertTo-Hex {
 <#
 .SYNOPSIS
 
@@ -27,10 +24,29 @@ Add-Type -Path "$scriptPath\Hexify.dll"
 
     HEX representation of the array
 #>
-function ConvertTo-Hex([Parameter(Mandatory=$True, ValueFromPipeline=$True)][byte[]]$ByteArray) {
-    return [LowLevelDesign.Hexify.Hex]::ToHexString($ByteArray)
+
+    [CmdletBinding()] Param (
+        [Parameter(Mandatory=$True, ValueFromPipeline=$True)][Byte[]]$ByteArray
+    )
+
+    BEGIN 
+    {
+        $Buffer = @()
+    }
+
+    PROCESS {
+        foreach ($Byte in $ByteArray) {
+            $Buffer += $Byte
+        }
+    }
+
+    END 
+    {
+        "0x$([LowLevelDesign.Hexify.Hex]::ToHexString($Buffer))"
+    }
 }
 
+function ConvertFrom-Hex {
 <#
 .SYNOPSIS
 
@@ -56,10 +72,21 @@ function ConvertTo-Hex([Parameter(Mandatory=$True, ValueFromPipeline=$True)][byt
 
     Byte array represented by the HEX string.
 #>
-function ConvertFrom-Hex([Parameter(Mandatory=$True, ValueFromPipeline=$True)][string]$HexString) {
-    return [LowLevelDesign.Hexify.Hex]::FromHexString($HexString)
+    [CmdletBinding()] Param(
+        [Parameter(Mandatory=$True, ValueFromPipeline=$True)][string]$HexString
+    )
+
+    BEGIN {}
+
+    PROCESS 
+    { 
+        [LowLevelDesign.Hexify.Hex]::FromHexString($HexString)
+    }
+
+    END {}
 }
 
+function Format-HexPrettyPrint {
 <#
 .SYNOPSIS
 
@@ -75,7 +102,7 @@ function ConvertFrom-Hex([Parameter(Mandatory=$True, ValueFromPipeline=$True)][s
 
 .EXAMPLE
 
-    (,$(gc -Encoding Byte .\Hexify\Hexify.psm1)) | Format-HexPrettyPrint
+    gc -Encoding Byte .\Hexify\Hexify.psm1 | Format-HexPrettyPrint
 
 .INPUTS
 
@@ -85,6 +112,24 @@ function ConvertFrom-Hex([Parameter(Mandatory=$True, ValueFromPipeline=$True)][s
 
     Nicely print byte array, with ASCII representation on the right side.
 #>
-function Format-HexPrettyPrint([Parameter(Mandatory=$True, ValueFromPipeline=$True)][byte[]]$ByteArray) {
-    return [LowLevelDesign.Hexify.Hex]::PrettyPrint($ByteArray)
+    [CmdletBinding()] Param(
+        [Parameter(Mandatory=$True, ValueFromPipeline=$True)][Byte[]]$ByteArray
+    )
+
+    BEGIN
+    {
+        $Buffer = @()
+    }
+
+    PROCESS 
+    {
+        foreach ($Byte in $ByteArray) {
+            $Buffer += $Byte
+        }
+    }
+
+    END
+    {
+        [LowLevelDesign.Hexify.Hex]::PrettyPrint($Buffer)
+    }
 }
