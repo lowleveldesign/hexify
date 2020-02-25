@@ -6,7 +6,7 @@ namespace LowLevelDesign.Hexify
 {
     public static class Hex
     {
-        private readonly static HexEncoder encoder = new HexEncoder();
+        private static readonly HexEncoder Encoder = new HexEncoder();
 
         /// <summary>
         /// Returns hex representation of the byte array.
@@ -33,7 +33,7 @@ namespace LowLevelDesign.Hexify
         private static byte[] Encode(byte[] data, int off, int length)
         {
             using (var stream = new MemoryStream()) {
-                encoder.Encode(data, off, length, stream);
+                Encoder.Encode(data, off, length, stream);
                 return stream.ToArray();
             }
         }
@@ -54,14 +54,15 @@ namespace LowLevelDesign.Hexify
                 throw new ArgumentException();
             }
             using (var stream = new MemoryStream()) {
-                encoder.DecodeString(hex, stream);
+                Encoder.DecodeString(hex, stream);
                 return stream.ToArray();
             }
         }
 
         /// <summary>
         /// Returns a string containing a nice representation  of the byte array 
-        /// (similarly to the binary editors). 
+        /// (similarly to the binary editors).
+        /// </summary>
         /// <param name="bytes">array of bytes to pretty print</param>
         /// <returns></returns>
         public static string PrettyPrint(byte[] bytes)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace LowLevelDesign.Hexify
 {
@@ -14,7 +13,7 @@ namespace LowLevelDesign.Hexify
      */
     public class HexEncoder
     {
-        protected readonly byte[] encodingTable =
+        private readonly byte[] encodingTable =
         {
             (byte)'0', (byte)'1', (byte)'2', (byte)'3', (byte)'4', (byte)'5', (byte)'6', (byte)'7',
             (byte)'8', (byte)'9', (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e', (byte)'f'
@@ -23,7 +22,7 @@ namespace LowLevelDesign.Hexify
         /*
          * set up the decoding table.
          */
-        protected readonly byte[] decodingTable = new byte[128];
+        private readonly byte[] decodingTable = new byte[128];
 
         private static void FillArray(byte[] buf, byte b)
         {
@@ -33,9 +32,9 @@ namespace LowLevelDesign.Hexify
             }
         }
 
-        protected void InitialiseDecodingTable()
+        private void InitialiseDecodingTable()
         {
-            FillArray(decodingTable, (byte)0xff);
+            FillArray(decodingTable, 0xff);
 
             for (int i = 0; i < encodingTable.Length; i++) {
                 decodingTable[encodingTable[i]] = (byte)i;
