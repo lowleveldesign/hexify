@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>LowLevelDesign.Hexify</RootNamespace>
-    <PackageVersion>1.2.0</PackageVersion>
+    <PackageVersion>1.2.1</PackageVersion>
 
     <Title>Hexify</Title>
     <Authors>Sebastian Solnica (@lowleveldesign)</Authors>
